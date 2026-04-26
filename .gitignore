@@ -1,0 +1,25 @@
+# Environment variables
+.env
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+
+# Python
+__pycache__/
+*.pyc
+
+# Testing
+.pytest_cache/
+
+# Data / local DB
+chroma_db/
+
+# OS / editor
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+debug.ipynb

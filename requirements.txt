@@ -1,0 +1,12 @@
+langgraph
+langchain
+langchain-groq
+arxiv
+pymupdf
+chromadb
+sentence-transformers
+ragas
+fastapi
+gradio
+python-dotenv
+pytest
