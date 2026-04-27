@@ -11,24 +11,21 @@ from datetime import datetime
 
 load_dotenv()
 
+
 def evaluator(state: dict) -> dict:
     if not state.get("run_evaluation", False):
         return state  # skip in production UI
-    
 
+    ragas_llm = ChatGroq(
+        model="llama-3.1-8b-instant",
+        api_key=os.getenv("GROQ_API_KEY"),
+        temperature=0.0
+    )
 
-ragas_llm = ChatGroq(
-    model="llama-3.1-8b-instant",
-    api_key=os.getenv("GROQ_API_KEY"),
-    temperature=0.0
-)
+    ragas_embeddings = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    )
 
-ragas_embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
-
-
-def evaluator(state: dict) -> dict:
     user_query = state.get("user_query", "")
     final_answer = state.get("final_answer", "")
     relevant_chunks = state.get("relevant_chunks", [])
@@ -47,6 +44,9 @@ def evaluator(state: dict) -> dict:
 
     dataset = Dataset.from_dict(eval_data)
 
+    faithfulness_score = None
+    relevancy_score = None
+
     try:
         scores = evaluate(
             dataset=dataset,
@@ -61,8 +61,6 @@ def evaluator(state: dict) -> dict:
         relevancy_score = round(float(df["answer_relevancy"].mean()), 3)
 
     except Exception as e:
-        faithfulness_score = None
-        relevancy_score = None
         print(f"RAGAS evaluation failed: {e}")
 
     log_entry = {
