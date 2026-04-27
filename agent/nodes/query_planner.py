@@ -17,15 +17,13 @@ Given a user question, produce 1 to 3 precise academic search queries
 suitable for searching arXiv.
 
 Rules:
-- Queries must target papers that DIRECTLY answer the user's question
-- Include the specific domain if the question implies one (e.g. NLP, text, QA)
-- Avoid overly broad terms that match unrelated subfields
-- Each query must be distinct and target a different angle of the question
-
-For example, if the user asks "how does RAG work for question answering":
-GOOD: ["retrieval augmented generation question answering mechanism", 
-       "RAG pipeline text QA dense retrieval"]
-BAD:  ["retrieval augmented generation", "RAG models"]
+- Target papers that DIRECTLY answer the user's question
+- Include the specific domain if the question implies one
+- For "how does X work" questions, include "mechanism", "survey", or "technique"
+- For "what is the difference" questions, include "comparison" or "benchmark"
+- For broad topics like prompt engineering, add constraining terms like
+  "empirical study", "systematic analysis", or specific technique names
+- Avoid overly broad queries that match unrelated subfields
 
 Respond ONLY with a JSON array of strings. No explanation, no markdown.
 """

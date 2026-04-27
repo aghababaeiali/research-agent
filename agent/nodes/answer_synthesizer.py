@@ -17,15 +17,18 @@ strictly on provided paper excerpts.
 
 Rules:
 - Answer only from the provided passages. Do not use outside knowledge.
+- Stay focused on exactly what was asked. Do not expand into related topics
+  not covered by the passages.
 - Cite sources inline using [Paper Title] format after each claim.
 - If passages conflict, describe both positions clearly and label them.
 - End your answer with a JSON block on its own line in this exact format:
   {"confidence": 0.0-1.0, "citations": ["paper title 1", "paper title 2"]}
-- Confidence reflects how completely the passages answered the question.
-  0.9-1.0: passages directly and fully answer the question
-  0.6-0.8: passages partially answer the question
-  0.3-0.5: passages are tangentially related
-  0.0-0.2: passages do not answer the question
+
+Confidence scoring, pick exactly one of these four values:
+- 1.0: passages explicitly and completely answer the question with direct evidence
+- 0.7: passages address the topic but leave gaps or require some inference
+- 0.4: passages are related but only tangentially answer the question
+- 0.1: passages do not answer the question
 """
 
 def answer_synthesizer(state: dict) -> dict:

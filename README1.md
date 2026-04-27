@@ -246,6 +246,8 @@ pytest tests/ -v
 
 ## About
 
-Built by **Ali Aghababaei**, NLP and Generative AI Engineer based in Rotterdam, Netherlands.
+Built by **Ali Aghababaei**, NLP and Generative AI Engineer based in Rotterdam, Netherlands. Orientation year visa holder, authorized to work without sponsorship.
+
+BSc Electrical Engineering, MSc ICT at University of Padova (110/110, 2025). 2.5 years industry experience as Technical Expert. Published researcher in explainable NLP.
 
 [GitHub](https://github.com/aghababaeiali) | [LinkedIn](https://linkedin.com/in/aliaghababaeii) | [Portfolio](https://aghababaeiali.github.io)
