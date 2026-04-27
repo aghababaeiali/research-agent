@@ -25,3 +25,5 @@ chroma_db/
 debug.ipynb
 
 .vscode/
+
+evaluation_log.jsonl
