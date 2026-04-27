@@ -11,6 +11,12 @@ from datetime import datetime
 
 load_dotenv()
 
+def evaluator(state: dict) -> dict:
+    if not state.get("run_evaluation", False):
+        return state  # skip in production UI
+    
+
+
 ragas_llm = ChatGroq(
     model="llama-3.1-8b-instant",
     api_key=os.getenv("GROQ_API_KEY"),

@@ -4,6 +4,7 @@ def _replace(old, new):
     return new
 
 class AgentState(TypedDict):
+    run_evaluation:           Annotated[bool,       _replace]
     user_query:               Annotated[str,        _replace]
     search_queries:           Annotated[list[str],  _replace]
     candidate_papers:         Annotated[list[dict], _replace]
