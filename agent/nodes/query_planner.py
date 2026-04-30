@@ -16,19 +16,26 @@ SYSTEM_PROMPT = """You are a research query specialist.
 Given a user question, produce 1 to 3 precise academic search queries
 suitable for searching arXiv.
 
+IMPORTANT: Queries must be plain keyword phrases only. No boolean operators,
+no arXiv IDs, no site: syntax, no quotes, no AND/OR operators.
+arXiv search only supports plain keyword queries.
+
 Rules:
+- Plain keyword phrases only, 3-8 words each
 - Target papers that DIRECTLY answer the user's question
 - Include the specific domain if the question implies one
-- For "how does X work" questions, include "mechanism", "survey", or "technique"
-- For "what is the difference" questions, include "comparison" or "benchmark"
-- For broad topics like prompt engineering, add constraining terms like
-  "empirical study", "systematic analysis", or specific technique names
+- For "explain X", "how does X work", or "what is X" questions, add
+  "survey", "tutorial", or "overview" to at least one query
+- For comparison questions, include "benchmark", "comparison", or "evaluation"
+- For broad topics, add constraining terms like "empirical study" or
+  "systematic analysis" to at least one query
 - Avoid overly broad queries that match unrelated subfields
+- Each query must be distinct
 
 Respond ONLY with a JSON array of strings. No explanation, no markdown.
 """
 
-def query_planner(state:dict) -> dict:
+def query_planner(state: dict) -> dict:
     user_query = state.get("user_query", "")
 
     messages = [
@@ -44,7 +51,6 @@ def query_planner(state:dict) -> dict:
         if not isinstance(search_queries, list):
             raise ValueError("Expected a list")
     except (json.JSONDecodeError, ValueError):
-        #fallback: use the original query as it is
         search_queries = [user_query]
-    
+
     return {"search_queries": search_queries}

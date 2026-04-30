@@ -4,7 +4,11 @@ def arxiv_searcher(state: dict) -> dict:
     search_queries = state.get("search_queries", [])
     current_iteration = state.get("search_iteration", 0)
 
-    client = arxiv.Client()
+    client = arxiv.Client(
+    page_size=10,
+    delay_seconds=3,
+    num_retries=3
+    )
     
     seen_ids = set()
     candidate_papers = []
